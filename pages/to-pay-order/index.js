@@ -47,6 +47,11 @@ Page({
   },
 
   onLoad: function (e) {
+    let token = wx.getStorageSync('token');
+    if (!token) {
+      app.goLoginPageTimeOut()
+      return
+    }
     this.setData({
       isNeedLogistics: 1,
       orderType: e.orderType,

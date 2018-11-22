@@ -5,22 +5,26 @@ Page({
   data: {
     remind: '加载中',
     angle: 0,
+    key: 'first-open',
     userInfo: {}
   },
   goToIndex:function(){
+    wx.setStorageSync(this.data.key, true)
     wx.switchTab({
       url: '/pages/index/index',
     });
   },
   onLoad:function(){
-    var that = this
+    if (wx.getStorageSync(this.data.key)) {
+      this.goToIndex()
+    }
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
   },
   onShow:function(){
     let that = this
-    let userInfo = wx.getStorageSync('userInfo')
+    let userInfo = wx.getStorageSync('userInfo') || {name: 'ok'}
     if (!userInfo) {
       wx.navigateTo({
         url: "/pages/authorize/index"

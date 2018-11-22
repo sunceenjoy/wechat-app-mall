@@ -17,7 +17,8 @@
     "pages/withdraw/index",
     "pages/kanjia/index",
     "pages/authorize/index",
-    "pages/score-excharge/index"
+    "pages/score-excharge/index",
+    "pages/params/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

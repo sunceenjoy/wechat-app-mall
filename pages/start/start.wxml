@@ -7,16 +7,16 @@
     <image class="title" src="/images/more/title8.png"></image>
     <view class="content">
       <view class="hd" style="transform:rotateZ({{angle}}deg);">
-        <image class="logo" src="{{userInfo.avatarUrl}}"></image>
+        <image v-if="userInfo.avatarUrl" class="logo" src="{{userInfo.avatarUrl}}"></image>
+        <div else class="logo" style="color:red">欢迎来到亚城折卖店</div>
         <image class="wave" src="/images/more/wave.png" mode="aspectFill"></image>
         <image class="wave wave-bg" src="/images/more/wave.png" mode="aspectFill"></image>
       </view>
       <view class="bd">
          <image class="smalltitle" src="/images/more/confirm-word1.png"></image>
         <view class="confirm-btn" bindtap='goToIndex'>
-          <text >进入店铺</text>
+          <text >进入商城</text>
         </view>
-        <text class="copyright">@qindiandadudu 贡献本页代码</text>
       </view>
     </view>
   </block>

@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    isLogging: false
   },
 
   /**
@@ -41,7 +41,13 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    if (wx.getStorageSync('token')) {
+      return
+    }
+    wx.switchTab({
+      url: "/pages/index/index"
+    })
+    wx.setStorageSync('unauth', true)
   },
 
   /**
@@ -68,8 +74,12 @@ Page({
     if (!e.detail.userInfo){
       return;
     }
+    this.setData({isLogging: true})
     wx.setStorageSync('userInfo', e.detail.userInfo)
     this.login();
+  },
+  lookAround: function () {
+    wx.navigateBack()
   },
   login: function () {
     let that = this;
@@ -100,6 +110,7 @@ Page({
             code: res.code
           },
           success: function (res) {
+            that.setData({isLogging: false})
             if (res.data.code == 10000) {
               // 去注册
               that.registerUser();

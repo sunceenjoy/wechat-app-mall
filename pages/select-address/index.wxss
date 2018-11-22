@@ -59,3 +59,25 @@
     background: url(https://cdn.it120.cc/images/weappshop/add-addr.png) no-repeat left center;
     background-size: 40rpx auto;
 }
+
+.no-address{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 88rpx;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding-top: 203rpx;
+    background-color: #F2f2f2;
+}
+.no-address-img{
+    width: 81rpx;
+    height: 96rpx;
+    margin-bottom: 31rpx;
+}
+.no-address .text{
+    font-size:28rpx;
+    color:#999999;
+    text-align: center
+}

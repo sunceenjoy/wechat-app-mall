@@ -19,7 +19,7 @@ Page({
     buyNumber:0,
     buyNumMin:1,
     buyNumMax:0,
-
+    isLoading: false,
     propertyChildIds:"",
     propertyChildNames:"",
     canSubmit:false, //  选中规格尺寸时候是否允许加入购物车
@@ -53,12 +53,20 @@ Page({
         });
       } 
     })
+    this.setData({isLoading: true})
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/detail',
       data: {
         id: e.id
       },
+      fail: () => {
+        this.setData({isLoading: false})
+      },
       success: function(res) {
+        that.setData({isLoading: false})
+        if (res.data.code !== 0) {
+          return  
+        }
         var selectSizeTemp = "";
         if (res.data.data.properties) {
           for(var i=0;i<res.data.data.properties.length;i++){

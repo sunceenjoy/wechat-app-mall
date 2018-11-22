@@ -38,13 +38,18 @@
     width: 100%;
     background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
     background-size: 16rpx auto,750rpx auto;
-    margin: 20rpx 0; 
+    margin: 10rpx 0; 
     border-bottom: 1px solid #eee;
     height: 100rpx;
     line-height: 100rpx;
     padding-left: 100rpx;
 }
-
+.bind-phone {
+  border:none;
+  padding-right:150rpx;
+  width:auto;
+  line-height: 80rpx;
+}
 .about{
     width: 100%;
     background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 750rpx center;
