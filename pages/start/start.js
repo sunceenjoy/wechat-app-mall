@@ -9,6 +9,7 @@ Page({
     userInfo: {}
   },
   goToIndex:function(){
+
     wx.setStorageSync(this.data.key, true)
     wx.switchTab({
       url: '/pages/index/index',
