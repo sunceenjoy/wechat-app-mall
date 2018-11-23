@@ -13,18 +13,18 @@
       <button type='warn' style='width:100%;margin-right:70rpx;' bindtap="withdraw">提现</button>
     </view>
   </view-->
-  <view class="my-item" style='background:none;display:flex;'>
+  <view wx:if="{{scoreColumnDisplay}}" class="my-item" style='background:none;display:flex;'>
     <view>当前积分 {{score}} </view>
     <button wx:if="{{score_sign_continuous == 0}}" style='height:80rpx;line-height:80rpx;margin-right:70rpx;' bindtap="scoresign">每日签到</button>
     <button wx:if="{{score_sign_continuous > 0}}" disabled='true' style='line-height:80rpx;height:80rpx;margin-right:70rpx;'>已连续{{score_sign_continuous}}天签到</button>
   </view>
-  <view class="my-item">
+  <view wx:if="{{scoreColumnDisplay}}" class="my-item">
     <navigator url="/pages/params/index?key=how-to-use-score" hover-class="navigator-hover">如何使用积分?</navigator>
   </view>
   <view class="my-item">
     <navigator url="/pages/order-list/index" hover-class="navigator-hover">我的订单</navigator>
   </view>
-  <view class="my-item">
+  <view wx:if="{{!isAtlantaMode}}" class="my-item">
     <navigator url="/pages/select-address/index" hover-class="navigator-hover">我的收货地址</navigator>
   </view>
   <!--view class="my-item">

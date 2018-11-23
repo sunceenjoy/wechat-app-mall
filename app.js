@@ -63,6 +63,30 @@ App({
         }
       }
     })
+    //  Display score columns on my homepage
+    wx.request({
+      url: 'https://api.it120.cc/'+ that.globalData.subDomain +'/config/get-value',
+      data: {
+        key: 'score-column-display'
+      },
+      success: function(res) {
+        if (res.data.code == 0) {
+          wx.setStorageSync('scoreColumnDisplay', res.data.data.value);
+        }
+      }
+    })
+    //  Is Atlanta mode?
+    wx.request({
+      url: 'https://api.it120.cc/'+ that.globalData.subDomain +'/config/get-value',
+      data: {
+        key: 'is-atlanta-mode'
+      },
+      success: function(res) {
+        if (res.data.code == 0) {
+          wx.setStorageSync('isAtlantaMode', res.data.data.value);
+        }
+      }
+    })
     wx.request({
       url: 'https://api.it120.cc/' + that.globalData.subDomain + '/score/send/rule',
       data: {

@@ -5,10 +5,11 @@ Page({
     balance:0,
     freeze:0,
     score:0,
-    score_sign_continuous:0
+    score_sign_continuous:0,
+    isAtlantaMode: 0
   },
 	onLoad() {
-    
+    this.setData({isAtlantaMode: wx.getStorageSync('isAtlantaMode')})
 	},	
   onShow() {
     // Users click navBack <- button which means he does not want to login
