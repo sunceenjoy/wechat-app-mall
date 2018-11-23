@@ -8,14 +8,14 @@ Page({
     key: 'first-open',
     userInfo: {}
   },
-  goToIndex:function(){
+  goToIndex: function () {
 
     wx.setStorageSync(this.data.key, true)
     wx.switchTab({
       url: '/pages/index/index',
     });
   },
-  onLoad:function(){
+  onLoad: function () {
     if (wx.getStorageSync(this.data.key)) {
       this.goToIndex()
     }
@@ -23,9 +23,9 @@ Page({
       title: wx.getStorageSync('mallName')
     })
   },
-  onShow:function(){
+  onShow: function () {
     let that = this
-    let userInfo = wx.getStorageSync('userInfo') || {name: 'ok'}
+    let userInfo = wx.getStorageSync('userInfo') || { name: 'ok' }
     if (!userInfo) {
       wx.navigateTo({
         url: "/pages/authorize/index"
@@ -36,18 +36,18 @@ Page({
       })
     }
   },
-  onReady: function(){
+  onReady: function () {
     var that = this;
-    setTimeout(function(){
+    setTimeout(function () {
       that.setData({
         remind: ''
       });
     }, 1000);
-    wx.onAccelerometerChange(function(res) {
-      var angle = -(res.x*30).toFixed(1);
-      if(angle>14){ angle=14; }
-      else if(angle<-14){ angle=-14; }
-      if(that.data.angle !== angle){
+    wx.onAccelerometerChange(function (res) {
+      var angle = -(res.x * 30).toFixed(1);
+      if (angle > 14) { angle = 14; }
+      else if (angle < -14) { angle = -14; }
+      if (that.data.angle !== angle) {
         that.setData({
           angle: angle
         });

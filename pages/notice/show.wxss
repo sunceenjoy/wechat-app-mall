@@ -3,6 +3,14 @@
   padding: 15rpx;
   font-size: 25rpx;
 }
+.notice .title {
+  text-align: center;
+  font-size: 50rpx;
+}
+.notice .text {
+  padding-right: 30rpx;
+}
+
 .title {
   color:chocolate;
   font-size: 30rpx;

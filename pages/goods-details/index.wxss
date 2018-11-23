@@ -101,12 +101,23 @@ swiper-item image {
   color: #CC0000;
   margin-bottom: 28rpx;
 }
-.goods-info .goods-price{
+.goods-info .goods-price-1{
    box-sizing:border-box;
    color:#e64340;
    font-size: 28rpx;
    font-weight: bold;
-   width: 30%;
+   width: 40%;
+   float:left;
+}
+.goods-info .goods-price-1 span {
+  color:#aaa;text-decoration:line-through
+}
+.goods-info .goods-price-2, .goods-info .goods-price-3{
+   box-sizing:border-box;
+   color:#e64340;
+   font-size: 28rpx;
+   font-weight: bold;
+   width: 25%;
    float:left;
 }
 .row-arrow{

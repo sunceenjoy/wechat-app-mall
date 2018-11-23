@@ -51,6 +51,18 @@ App({
         }
       }
     })
+    //  获取是否搜索
+    wx.request({
+      url: 'https://api.it120.cc/'+ that.globalData.subDomain +'/config/get-value',
+      data: {
+        key: 'search-display'
+      },
+      success: function(res) {
+        if (res.data.code == 0) {
+          wx.setStorageSync('searchDisplay', res.data.data.value);
+        }
+      }
+    })
     wx.request({
       url: 'https://api.it120.cc/' + that.globalData.subDomain + '/score/send/rule',
       data: {
@@ -172,6 +184,9 @@ App({
     note:'增加小程序购物单支持',
     appid: "wx12eeacaa2da12c50", // 您的小程序的appid
     shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
+  },
+  params: {
+    navTo: null
   }
   /*
   根据自己需要修改下单时候的模板消息内容设置，可增加关闭订单、收货时候模板消息提醒；

@@ -44,10 +44,7 @@ Page({
     if (wx.getStorageSync('token')) {
       return
     }
-    wx.switchTab({
-      url: "/pages/index/index"
-    })
-    wx.setStorageSync('unauth', true)
+    app.params.navTo = '/pages/index/index'
   },
 
   /**

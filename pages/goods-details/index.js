@@ -274,6 +274,13 @@ Page({
 	  * 立即购买
 	  */
   buyNow: function (e){
+    let userInfo = wx.getStorageSync('userInfo')
+    if (!userInfo) {
+      wx.navigateTo({
+        url: "/pages/authorize/index"
+      })
+      return
+    }
     let that = this
     let shoptype = e.currentTarget.dataset.shoptype
     console.log(shoptype)

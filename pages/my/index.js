@@ -11,9 +11,12 @@ Page({
     
 	},	
   onShow() {
-    let unauth = wx.getStorageSync('unauth')
-    if (unauth) {
-      wx.removeStorageSync('unauth')
+    // Users click navBack <- button which means he does not want to login
+    if (app.params.navTo) {
+      wx.switchTab({
+        url: app.params.navTo
+      })
+      app.params.navTo = null
       return
     }
     let that = this;
@@ -22,6 +25,7 @@ Page({
       wx.navigateTo({
         url: "/pages/authorize/index"
       })
+      return
     } else {
       that.setData({
         userInfo: userInfo,

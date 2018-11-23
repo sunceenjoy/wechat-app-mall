@@ -3,6 +3,7 @@
 var app = getApp()
 Page({
   data: {
+    searchDisplay: false,
     indicatorDots: true,
     autoplay: true,
     interval: 3000,
@@ -61,6 +62,7 @@ Page({
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
     })
+    this.setData({searchDisplay: wx.getStorageSync('searchDisplay')})
     wx.request({
       url: 'https://api.it120.cc/' + app.globalData.subDomain + '/banner/list',
       data: {
