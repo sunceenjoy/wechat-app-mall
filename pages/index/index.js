@@ -231,7 +231,6 @@ Page({
       title: wx.getStorageSync('mallName') + '——' + app.globalData.shareTitle,
       path: '/pages/index/index',
       success: function (res) {
-        console.log(app.globalData.shareTitle)
         // 转发成功
       },
       fail: function (res) {

@@ -191,13 +191,6 @@ Page({
    */
   labelItemTap: function(e) {
     var that = this;
-    /*
-    console.log(e)
-    console.log(e.currentTarget.dataset.propertyid)
-    console.log(e.currentTarget.dataset.propertyname)
-    console.log(e.currentTarget.dataset.propertychildid)
-    console.log(e.currentTarget.dataset.propertychildname)
-    */
     // 取消该分类下的子栏目所有的选中状态
     var childs = that.data.goodsDetail.properties[e.currentTarget.dataset.propertyindex].childsCurGoods;
     for(var i = 0;i < childs.length;i++){
@@ -319,7 +312,7 @@ Page({
     }
     let that = this
     let shoptype = e.currentTarget.dataset.shoptype
-    console.log(shoptype)
+    // console.log(shoptype)
     if (this.data.goodsDetail.properties && !this.data.canSubmit) {
       if (!this.data.canSubmit) {
         wx.showModal({
@@ -577,7 +570,7 @@ Page({
       },
       success: function (res) {
         if (res.data.code == 0) {
-          console.log(res.data);
+          // console.log(res.data);
           wx.navigateTo({
             url: "/pages/kanjia/index?kjId=" + res.data.data.kjId + "&joiner=" + res.data.data.uid + "&id=" + res.data.data.goodsId
           })
@@ -592,7 +585,6 @@ Page({
     })
   },
   joinPingtuan: function (e) {
-    console.log(e)
     let pingtuanopenid = e.currentTarget.dataset.pingtuanopenid
     wx.navigateTo({
       url: "/pages/to-pay-order/index?orderType=buyNow&pingtuanOpenId=" + pingtuanopenid

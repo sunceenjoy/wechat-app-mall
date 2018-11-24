@@ -55,7 +55,7 @@ Page({
     this.setData({
       isNeedLogistics: 1,
       orderType: e.orderType,
-      pingtuanOpenId: e.pingtuanOpenId
+      pingtuanOpenId: e.pingtuanOpenId || null
     });
   },
 

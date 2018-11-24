@@ -173,7 +173,7 @@ App({
         postJsonString: postJsonString
       },
       success: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
       }
     })
   },  
