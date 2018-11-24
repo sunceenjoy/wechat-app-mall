@@ -15,6 +15,12 @@ Page({
    */
   onLoad: function (options) {
     //  获取商城名称
+    let key = options.key
+    if (app.params[key]) {
+      this.setData({value: app.params[key]})
+      wxparse.wxParse('value', 'html', this.data.value, this)
+      return 
+    }
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/config/get-value',
       data: {
@@ -22,6 +28,7 @@ Page({
       },
       success: (res) => {
         if (res.data.code == 0) {
+          app.params[key] = res.data.data.value
           this.setData({value: res.data.data.value})
           wxparse.wxParse('value', 'html', this.data.value, this)
         }

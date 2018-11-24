@@ -1,8 +1,9 @@
 var wxpay = require('../../utils/pay.js')
+var util = require('../../utils/util.js')
 var app = getApp()
 Page({
   data:{
-    statusType: ["待付款", "待发货", "待收货", "待评价", "已完成"],
+    statusType: ["待提货", "已完成"],
     currentType:0,
     tabClass: ["", "", "", "", ""]
   },
@@ -162,6 +163,11 @@ Page({
       success: (res) => {
         wx.hideLoading();
         if (res.data.code == 0) {
+          
+          res.data.data.orderList.map((v) => {
+            v.dateAdd = util.dateFormatBeiJingToAtlanta(v.dateAdd)
+            // v.dateAdd = new Date(Date.parse(v.dateAdd) - 0 * 3600 * 1000)
+          })
           that.setData({
             orderList: res.data.data.orderList,
             logisticsMap : res.data.data.logisticsMap,

@@ -57,7 +57,7 @@ Page({
         selectCurrent: e.index  
     })  
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this
     wx.setNavigationBarTitle({
       title: wx.getStorageSync('mallName')
@@ -101,6 +101,10 @@ Page({
     })
     that.getCoupons ();
     that.getNotice ();
+    if (options.toUrl) {
+      wx.navigateTo({url: decodeURIComponent(options.toUrl)})
+      return
+    }
   },
   onPageScroll(e) {
     let scrollTop = this.data.scrollTop
@@ -224,9 +228,10 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: wx.getStorageSync('mallName') + '——' + app.globalData.shareProfile,
+      title: wx.getStorageSync('mallName') + '——' + app.globalData.shareTitle,
       path: '/pages/index/index',
       success: function (res) {
+        console.log(app.globalData.shareTitle)
         // 转发成功
       },
       fail: function (res) {

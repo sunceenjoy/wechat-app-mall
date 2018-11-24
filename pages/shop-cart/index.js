@@ -180,6 +180,7 @@ Page({
         key:"shopCarInfo",
         data:shopCarInfo
       })
+      app.setCartBadge(shopCarInfo.shopNum)
    },
    bindAllSelect:function(){
       var currentAllSelect = this.data.goodsList.allSelect;
@@ -213,10 +214,16 @@ Page({
         },
         success: function (res) {
           carShopBeanStores = res.data.data.basicInfo.stores;
-          console.log(' currnet good id and stores is :',carShopBean.goodsId, carShopBeanStores)
           if (list[parseInt(index)].number < carShopBeanStores) {
             list[parseInt(index)].number++;
             that.setGoodsList(that.getSaveHide(), that.totalPrice(), that.allSelect(), that.noSelect(), list);
+          } else {
+            wx.showToast({
+              title: '对不起,库存不足!',
+              duration: 2000,
+              icon: 'none',
+              mask:true
+            })
           }
           that.setData({
             curTouchGoodStore: carShopBeanStores
@@ -272,6 +279,13 @@ Page({
      this.setGoodsList(this.getSaveHide(),this.totalPrice(),this.allSelect(),this.noSelect(),list);
     },
     toPayOrder:function(){
+      let userInfo = wx.getStorageSync('userInfo')
+      if (!userInfo) {
+        wx.navigateTo({
+          url: "/pages/authorize/index"
+        })
+        return
+      }
       wx.showLoading();
       var that = this;
       if (this.data.goodsList.noSelect) {
@@ -387,6 +401,12 @@ Page({
       wx.navigateTo({
         url:"/pages/to-pay-order/index"
       })
+    },
+    goToTtemDetailPage (e) {
+      wx.navigateTo({
+        url:"/pages/goods-details/index?id=" + e.currentTarget.dataset.item.goodsId
+      })
+      return false
     }
 
 

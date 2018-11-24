@@ -116,7 +116,7 @@ Page({
       postData.calculate = "true";
     }
 
-
+    postData.expireMinutes = app.params.orderExpireMinutes
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/order/create',
       method:'POST',
@@ -138,6 +138,7 @@ Page({
         if (e && "buyNow" != that.data.orderType) {
           // 清空购物车数据
           wx.removeStorageSync('shopCarInfo');
+          app.setCartBadge(0)
         }
         if (!e) {
           that.setData({

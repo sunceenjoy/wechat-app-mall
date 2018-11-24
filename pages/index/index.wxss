@@ -54,7 +54,7 @@ swiper-item image {
   color: transparent;
 }
 .type-box{
-  width:160rpx;
+  width:145rpx;
   box-sizing: content-box;
   font-size: 24rpx;
   line-height: 84rpx;
@@ -103,12 +103,17 @@ swiper-item image {
   margin-left: 24rpx;
 }
 .goods-box .goods-price{
-  width: 280rpx;
   overflow: hidden;
   font-size: 24rpx;
   padding: 24rpx 0;
   color:#e64340;
   margin-left: 24rpx;
+}
+.goods-box .inventory {
+  font-size: 24rpx;
+  padding: 24rpx 0;
+  margin-left: 34rpx;
+  overflow: hidden;
 }
 .no-more-goods{
   text-align: center;

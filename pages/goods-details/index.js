@@ -5,6 +5,7 @@ var WxParse = require('../../wxParse/wxParse.js');
 
 Page({
   data: {
+    displayShopButton: false,
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -18,13 +19,14 @@ Page({
     hideShopPopup:true,
     buyNumber:0,
     buyNumMin:1,
-    buyNumMax:0,
+    buyNumMax: -1,
     isLoading: false,
     propertyChildIds:"",
     propertyChildNames:"",
     canSubmit:false, //  选中规格尺寸时候是否允许加入购物车
     shopCarInfo:{},
     shopType: "addShopCar",//购物类型，加入购物车或立即购买，默认为加入购物车
+    added: false, // If an user already added an item, then display go to cart button instead of adding to cart button
   },
 
   //事件处理函数
@@ -34,7 +36,24 @@ Page({
         swiperCurrent: e.detail.current  
     })  
   },
+  navHomePage () {
+    wx.navigateBack({})
+  },
+  onShow () {
+    this.setData({added: false})
+
+    if (app.params.fromSharing) {
+      // First time seeing the page form sharing, then display 进店逛逛
+      app.params.fromSharing = false
+    } else {
+      this.setData({displayShopButton: false})
+    }
+  },
   onLoad: function (e) {
+    if (parseInt(e.share) === 1) {
+      app.params.fromSharing = true
+      this.setData({displayShopButton: true})
+    }
     if (e.inviter_id) {
       wx.setStorage({
         key: 'inviter_id_' + e.id,
@@ -51,6 +70,7 @@ Page({
           shopCarInfo:res.data,
           shopNum:res.data.shopNum
         });
+        app.setCartBadge(res.data.shopNum)
       } 
     })
     this.setData({isLoading: true})
@@ -156,6 +176,13 @@ Page({
         this.setData({  
             buyNumber: currentNum
         })  
+     } else {
+       wx.showToast({
+          title: '对不起,库存不足!',
+          duration: 2000,
+          icon: 'none',
+          mask:true
+        })
      }
   },
   /**
@@ -247,14 +274,23 @@ Page({
       })
       return;
     }
+    this.setData({added: true})
     //组建购物车
     var shopCarInfo = this.bulidShopCarInfo();
-
+    if (shopCarInfo === false) {
+      wx.showToast({
+        title: '对不起,库存不足!',
+        duration: 2000,
+        icon: 'none',
+        mask:true
+      })
+      return
+    }
     this.setData({
       shopCarInfo:shopCarInfo,
       shopNum:shopCarInfo.shopNum
     });
-
+    app.setCartBadge(shopCarInfo.shopNum)
     // 写入本地存储
     wx.setStorage({
       key:'shopCarInfo',
@@ -353,6 +389,7 @@ Page({
     shopCarMap.goodsId = this.data.goodsDetail.basicInfo.id;
     shopCarMap.pic = this.data.goodsDetail.basicInfo.pic;
     shopCarMap.name = this.data.goodsDetail.basicInfo.name;
+    shopCarMap.stores = this.data.goodsDetail.basicInfo.stores;
     // shopCarMap.label=this.data.goodsDetail.basicInfo.id; 规格尺寸 
     shopCarMap.propertyChildIds = this.data.propertyChildIds;
     shopCarMap.label = this.data.propertyChildNames;
@@ -378,6 +415,10 @@ Page({
       if (tmpShopCarMap.goodsId == shopCarMap.goodsId && tmpShopCarMap.propertyChildIds == shopCarMap.propertyChildIds) {
         hasSameGoodsIndex = i;
         shopCarMap.number = shopCarMap.number + tmpShopCarMap.number;
+        if (shopCarMap.stores < shopCarMap.number) {
+          // no more inventory
+          return false
+        }
         break;
       }
     }
@@ -443,8 +484,8 @@ Page({
   },   
   onShareAppMessage: function () {
     return {
-      title: this.data.goodsDetail.basicInfo.name,
-      path: '/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid'),
+      title: this.data.goodsDetail.basicInfo.name + ' - $'  +this.data.selectSizePrice,
+      path: '/pages/index/index?toUrl=' + encodeURIComponent('/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid') + '&share=1'),
       success: function (res) {
         // 转发成功
       },

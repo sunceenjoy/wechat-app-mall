@@ -119,24 +119,14 @@ App({
         }
       }
     })
-    return
-    // 判断是否登录
-    let token = wx.getStorageSync('token');
-    if (!token) {
-      that.goLoginPageTimeOut()
-      return
-    }
-    wx.request({
-      url: 'https://api.it120.cc/' + that.globalData.subDomain + '/user/check-token',
-      data: {
-        token: token
-      },
-      success: function (res) {
-        if (res.data.code != 0) {
-          wx.removeStorageSync('token')
-          that.goLoginPageTimeOut()
-        }
-      }
+    // Get item nums in cart
+    wx.getStorage({
+      key: 'shopCarInfo',
+      success: (res) => {
+        setTimeout(() => {
+          res.data.shopNum && this.setCartBadge(res.data.shopNum)
+        }, 3000)
+      } 
     })
   },
   sendTempleMsg: function (orderId, trigger, template_id, form_id, page, postJsonString){
@@ -207,10 +197,19 @@ App({
     version: "4.1.0",
     note:'增加小程序购物单支持',
     appid: "wx12eeacaa2da12c50", // 您的小程序的appid
-    shareProfile: '百款精品商品，总有一款适合您' // 首页转发的时候话术
+    shareTitle: '欢迎您' // 首页转发的时候话术
   },
   params: {
-    navTo: null
+    navTo: null,
+    fromSharing: false,
+    orderExpireMinutes: 24 * 60 * 30 // new order expire minutes, default 1 month,
+  },
+  setCartBadge (nums) {
+    if (nums === 0) {
+      wx.removeTabBarBadge({index: 1})
+      return
+    }
+    wx.setTabBarBadge({index: 1, text: nums + ''})
   }
   /*
   根据自己需要修改下单时候的模板消息内容设置，可增加关闭订单、收货时候模板消息提醒；

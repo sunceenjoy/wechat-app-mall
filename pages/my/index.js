@@ -6,7 +6,8 @@ Page({
     freeze:0,
     score:0,
     score_sign_continuous:0,
-    isAtlantaMode: 0
+    isAtlantaMode: 0,
+    userInfo: {}
   },
 	onLoad() {
     this.setData({isAtlantaMode: wx.getStorageSync('isAtlantaMode')})
@@ -149,6 +150,7 @@ Page({
   logout:function(){
     wx.removeStorageSync('token')
     wx.removeStorageSync('userInfo')
+    this.setData({userInfo: {}})
     wx.switchTab({
       url: '/pages/index/index',
     });
