@@ -477,6 +477,7 @@ Page({
   },   
   onShareAppMessage: function () {
     return {
+      imageUrl: this.data.goodsDetail.pics[0].pic,
       title: this.data.goodsDetail.basicInfo.name + ' - $'  +this.data.selectSizePrice,
       path: '/pages/index/index?toUrl=' + encodeURIComponent('/pages/goods-details/index?id=' + this.data.goodsDetail.basicInfo.id + '&inviter_id=' + wx.getStorageSync('uid') + '&share=1'),
       success: function (res) {

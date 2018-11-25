@@ -228,6 +228,7 @@ Page({
   },
   onShareAppMessage: function () {
     return {
+      imageUrl: '/images/homepage-screenshot.png',
       title: wx.getStorageSync('mallName') + '——' + app.globalData.shareTitle,
       path: '/pages/index/index',
       success: function (res) {
