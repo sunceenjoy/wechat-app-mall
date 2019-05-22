@@ -5,13 +5,16 @@
 		"es6": true,
 		"postcss": false,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wx12eeacaa2da12c50",
+	"appid": "wxc4ab698e830747b1",
 	"projectname": "shop-1",
 	"scripts": {},
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

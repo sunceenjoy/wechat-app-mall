@@ -85,7 +85,10 @@ Page({
     wx.request({
       url: 'https://api.it120.cc/'+ app.globalData.subDomain +'/shop/goods/category/all',
       success: function(res) {
-        var categories = [{id:0, name:"全部"}];
+        var categories = [];
+        if (!wx.getStorageSync('isAtlantaMode')) {
+          categories.push({ id: 0, name: "全部" })
+        }
         if (res.data.code == 0) {
           for (var i = 0; i < res.data.data.length; i++) {
             categories.push(res.data.data[i]);

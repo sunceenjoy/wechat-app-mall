@@ -83,7 +83,7 @@ App({
       },
       success: function(res) {
         if (res.data.code == 0) {
-          wx.setStorageSync('isAtlantaMode', res.data.data.value);
+          wx.setStorageSync('isAtlantaMode', parseInt(res.data.data.value));
         }
       }
     })
@@ -196,7 +196,7 @@ App({
     subDomain: "412d438ee8ba800edf3f72c648af7666", // 如果你的域名是： https://api.it120.cc/abcd 那么这里只要填写 abcd
     version: "4.1.0",
     note:'增加小程序购物单支持',
-    appid: "wx12eeacaa2da12c50", // 您的小程序的appid
+    appid: "wxc4ab698e830747b1", // 您的小程序的appid
     shareTitle: '欢迎您' // 首页转发的时候话术
   },
   params: {
@@ -205,6 +205,7 @@ App({
     orderExpireMinutes: 24 * 60 * 30 // new order expire minutes, default 1 month,
   },
   setCartBadge (nums) {
+    return
     if (nums === 0) {
       wx.removeTabBarBadge({index: 1})
       return
